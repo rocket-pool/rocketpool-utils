@@ -5,7 +5,7 @@ const { getConfig } = require('../utils/config');
 const { getContract } = require('../utils/contract');
 
 
-// Simulate a user deposit from the coinbase account
+// Make a user deposit from the coinbase account
 function userDeposit(ethAmount) {
 
     // Get config
@@ -37,6 +37,6 @@ function userDeposit(ethAmount) {
 // Export command
 module.exports = createCommand('user-deposit')
     .arguments('<eth-amount>')
-    .description('simulate a user deposit from the coinbase account')
+    .description('make a user deposit from the coinbase account')
     .action(userDeposit);
 
