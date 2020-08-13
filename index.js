@@ -1,6 +1,7 @@
 // Imports
 const { program } = require('commander');
 const seedEther = require('./commands/seed-ether');
+const userDeposit = require('./commands/user-deposit');
 
 // Global options
 program
@@ -8,7 +9,8 @@ program
 
 // Commands
 program
-    .addCommand(seedEther);
+    .addCommand(seedEther)
+    .addCommand(userDeposit);
 
 // Run
 program.parse(process.argv);
