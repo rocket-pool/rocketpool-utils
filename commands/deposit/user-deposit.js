@@ -1,8 +1,8 @@
 // Imports
 const { createCommand } = require('commander');
 const Web3 = require('web3');
-const { getConfig } = require('../utils/config');
-const { getContract } = require('../utils/contract');
+const { getConfig } = require('../../utils/config');
+const { getContract } = require('../../utils/contract');
 
 
 // Make a user deposit from the coinbase account
