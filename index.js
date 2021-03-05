@@ -16,6 +16,9 @@ const viewDepositPoolLogs = require('./commands/profiling/view-deposit-pool-logs
 const viewNetworkBalanceLogs = require('./commands/profiling/view-network-balance-logs');
 const profileGasUsage = require('./commands/profiling/profile-gas-usage');
 
+// Tokens
+const mintRpl = require('./commands/tokens/mint-rpl');
+
 // Global options
 program
     .option('-n, --network <id>', 'network to operate on', 'local');
@@ -28,7 +31,8 @@ program
     .addCommand(nodeDeposit)
     .addCommand(viewDepositPoolLogs)
     .addCommand(viewNetworkBalanceLogs)
-    .addCommand(profileGasUsage);
+    .addCommand(profileGasUsage)
+    .addCommand(mintRpl);
 
 // Run
 program.parse(process.argv);
