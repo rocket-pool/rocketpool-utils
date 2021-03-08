@@ -2,7 +2,7 @@
 const { program } = require('commander');
 
 // General
-const seedEther = require('./commands/seed-ether');
+const seedEther = require('./commands/general/seed-ether');
 
 // Deposit pool
 const userDeposit = require('./commands/deposit/user-deposit');

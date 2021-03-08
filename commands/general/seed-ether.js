@@ -1,7 +1,7 @@
 // Imports
 const { createCommand } = require('commander');
 const Web3 = require('web3');
-const { getConfig } = require('../utils/config');
+const { getConfig } = require('../../utils/config');
 
 
 // Seed an account with ether from the coinbase account
