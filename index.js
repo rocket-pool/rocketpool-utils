@@ -5,6 +5,9 @@ const { program } = require('commander');
 const seedEther = require('./commands/general/seed-ether');
 const mineBlocks = require('./commands/general/mine-blocks');
 
+// DAOs
+const trustedNodeDAO = require('./commands/dao/trusted-node');
+
 // Deposit pool
 const userDeposit = require('./commands/deposit/user-deposit');
 
@@ -34,6 +37,9 @@ program
     // General
     .addCommand(seedEther)
     .addCommand(mineBlocks)
+
+    // DAOs
+    .addCommand(trustedNodeDAO.bootstrapMember)
 
     // Deposit pool
     .addCommand(userDeposit)
