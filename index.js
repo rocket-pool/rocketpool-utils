@@ -3,6 +3,7 @@ const { program } = require('commander');
 
 // General
 const seedEther = require('./commands/general/seed-ether');
+const mineBlocks = require('./commands/general/mine-blocks');
 
 // Deposit pool
 const userDeposit = require('./commands/deposit/user-deposit');
@@ -26,6 +27,7 @@ program
 // Commands
 program
     .addCommand(seedEther)
+    .addCommand(mineBlocks)
     .addCommand(userDeposit)
     .addCommand(nodeRegister)
     .addCommand(nodeDeposit)
