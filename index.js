@@ -20,7 +20,8 @@ const protocolSettings = require('./commands/settings/protocol');
 const trustedNodeSettings = require('./commands/settings/trusted-node');
 
 // Tokens
-const mintRpl = require('./commands/tokens/mint-rpl');
+const mintOldRpl = require('./commands/tokens/mint-old-rpl');
+const mintNewRpl = require('./commands/tokens/mint-new-rpl');
 
 // Profiling
 const viewDepositPoolLogs = require('./commands/profiling/view-deposit-pool-logs');
@@ -40,6 +41,7 @@ program
 
     // DAOs
     .addCommand(trustedNodeDAO.bootstrapMember)
+    .addCommand(trustedNodeDAO.memberJoin)
 
     // Deposit pool
     .addCommand(userDeposit)
@@ -56,7 +58,8 @@ program
     .addCommand(trustedNodeSettings.bootstrapUint)
 
     // Tokens
-    .addCommand(mintRpl)
+    .addCommand(mintOldRpl)
+    .addCommand(mintNewRpl)
 
     // Profiling
     .addCommand(viewDepositPoolLogs)
