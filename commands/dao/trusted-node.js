@@ -3,6 +3,7 @@ const { createCommand } = require('commander');
 const Web3 = require('web3');
 const { getConfig } = require('../../utils/config');
 const { getContract } = require('../../utils/contract');
+const { parseBool } = require('../../utils/validation');
 
 
 // Bootstrap a trusted node DAO member
@@ -68,6 +69,35 @@ function memberJoin(nodeAddress) {
 }
 
 
+// Vote on a trusted node DAO proposal
+function voteOnProposal(nodeAddress, proposalId, supportStr) {
+
+    // Get config
+    const config = getConfig();
+
+    // Validate args
+    if (isNaN(parseInt(proposalId))) throw new Error('Invalid proposal ID');
+    support = parseBool(supportStr);
+
+    // Initialize web3
+    const web3 = new Web3(config.web3Provider);
+
+    // Get coinbase account & TN DAO proposals contract, send transaction
+    Promise.all([
+        web3.eth.getAccounts().then(accounts => accounts[0]),
+        getContract(web3, 'RocketDAONodeTrustedProposals'),
+    ]).then(([coinbase, rocketDAONodeTrustedProposals]) => {
+        return rocketDAONodeTrustedProposals.methods.vote(parseInt(proposalId), support).send({
+            from: nodeAddress,
+            gas: config.gasLimit,
+        });
+    }).then((receipt) => {
+        console.log('%s successfully voted %s on proposal %f', nodeAddress, supportStr, proposalId);
+    });
+
+}
+
+
 // Export command
 module.exports = {
     bootstrapMember: createCommand('bootstrap-tn-dao-member')
@@ -78,5 +108,9 @@ module.exports = {
         .arguments('<nodeAddress>')
         .description('join the trusted node DAO')
         .action(memberJoin),
+    voteOnProposal: createCommand('tn-dao-vote-on-proposal')
+        .arguments('<nodeAddress> <proposalId> <support>')
+        .description('vote on a trusted node DAO proposal')
+        .action(voteOnProposal),
 };
 

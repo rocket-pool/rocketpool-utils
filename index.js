@@ -42,6 +42,7 @@ program
     // DAOs
     .addCommand(trustedNodeDAO.bootstrapMember)
     .addCommand(trustedNodeDAO.memberJoin)
+    .addCommand(trustedNodeDAO.voteOnProposal)
 
     // Deposit pool
     .addCommand(userDeposit)
