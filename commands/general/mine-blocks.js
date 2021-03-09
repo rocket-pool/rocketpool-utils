@@ -11,14 +11,14 @@ function mineBlocks(numBlocks) {
     const config = getConfig();
 
     // Validate args
-    if (isNaN(parseFloat(numBlocks))) throw new Error('Invalid block count');
+    if (isNaN(parseInt(numBlocks))) throw new Error('Invalid block count');
 
     // Initialize web3
     const web3 = new Web3(config.web3Provider);
 
     // Make RPC calls
     let p = Promise.resolve();
-    for (let i = 0; i < numBlocks; ++i) {
+    for (let i = 0; i < parseInt(numBlocks); ++i) {
         p.then(new Promise((resolve, reject) => {
             web3.currentProvider.send({
                 jsonrpc: '2.0',
