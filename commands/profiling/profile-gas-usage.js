@@ -17,7 +17,7 @@ function profileGasUsage() {
     // Get & print gas usage stats
     Promise.all([
         getContractEventTxReceipts(web3, 'RocketDepositPool', 'DepositReceived', {fromBlock: 0}),
-        getContractEventTxReceipts(web3, 'RocketETHToken', 'TokensBurned', {fromBlock: 0}),
+        getContractEventTxReceipts(web3, 'RocketTokenRETH', 'TokensBurned', {fromBlock: 0}),
         getContractEventTxReceipts(web3, 'RocketNodeManager', 'NodeRegistered', {fromBlock: 0}),
         getContractEventTxReceipts(web3, 'RocketNodeDeposit', 'DepositReceived', {fromBlock: 0}),
         getContractEventTxReceipts(web3, 'RocketMinipoolManager', 'MinipoolDestroyed', {fromBlock: 0}),
