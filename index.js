@@ -11,6 +11,9 @@ const trustedNodeDAO = require('./commands/dao/trusted-node');
 // Deposit pool
 const userDeposit = require('./commands/deposit/user-deposit');
 
+// Minipool
+const submitMinipoolWithdrawable = require('./commands/minipool/submit-withdrawable');
+
 // Node
 const nodeRegister = require('./commands/node/register');
 const nodeDeposit = require('./commands/node/deposit');
@@ -46,6 +49,9 @@ program
 
     // Deposit pool
     .addCommand(userDeposit)
+
+    // Minipool
+    .addCommand(submitMinipoolWithdrawable)
 
     // Node
     .addCommand(nodeRegister)
