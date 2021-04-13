@@ -29,6 +29,7 @@ const mintNewRpl = require('./commands/tokens/mint-new-rpl');
 // Profiling
 const viewDepositPoolLogs = require('./commands/profiling/view-deposit-pool-logs');
 const viewNetworkBalanceLogs = require('./commands/profiling/view-network-balance-logs');
+const viewNetworkPriceLogs = require('./commands/profiling/view-network-price-logs');
 const profileGasUsage = require('./commands/profiling/profile-gas-usage');
 
 // Global options
@@ -71,6 +72,7 @@ program
     // Profiling
     .addCommand(viewDepositPoolLogs)
     .addCommand(viewNetworkBalanceLogs)
+    .addCommand(viewNetworkPriceLogs)
     .addCommand(profileGasUsage);
 
 // Run
