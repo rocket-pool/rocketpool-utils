@@ -30,6 +30,7 @@ const mintOldRpl = require('./commands/tokens/mint-old-rpl');
 const mintNewRpl = require('./commands/tokens/mint-new-rpl');
 
 // Upgrading
+const upgradeEncodeCalldata = require('./commands/upgrade/call-encode');
 const upgradeABICompress = require('./commands/upgrade/abi-compress');
 const upgradeABIDecompress = require('./commands/upgrade/abi-decompress');
 
@@ -54,6 +55,7 @@ program
     .addCommand(contractAddressABI)
 
     // DAOs
+    .addCommand(trustedNodeDAO.bootstrapMember)
     .addCommand(trustedNodeDAO.bootstrapMember)
     .addCommand(trustedNodeDAO.memberJoin)
     .addCommand(trustedNodeDAO.voteOnProposal)
@@ -80,6 +82,7 @@ program
     .addCommand(mintNewRpl)
 
     // Upgrading
+    .addCommand(upgradeEncodeCalldata)
     .addCommand(upgradeABICompress)
     .addCommand(upgradeABIDecompress)
 
