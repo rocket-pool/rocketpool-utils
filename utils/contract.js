@@ -1,5 +1,6 @@
 // imports
 const fs = require('fs');
+const pako = require('pako');
 const { getConfig } = require('../utils/config');
 
 
@@ -20,6 +21,14 @@ function getContract(web3, name) {
 
 }
 
+// Compress / decompress contract ABIs
+function compressABI(abi) {
+    return Buffer.from(pako.deflate(JSON.stringify(abi))).toString('base64');
+}
+
+function decompressABI(abi) {
+    return JSON.parse(pako.inflate(Buffer.from(abi, 'base64'), {to: 'string'}));
+}
 
 // Exports
-module.exports = { getContract };
+module.exports = { getContract, compressABI, decompressABI };

@@ -5,6 +5,9 @@ const { program } = require('commander');
 const seedEther = require('./commands/general/seed-ether');
 const mineBlocks = require('./commands/general/mine-blocks');
 
+// Contracts
+const contractAddressABI = require('./commands/contract/get-address-abi');
+
 // DAOs
 const trustedNodeDAO = require('./commands/dao/trusted-node');
 
@@ -26,6 +29,10 @@ const trustedNodeSettings = require('./commands/settings/trusted-node');
 const mintOldRpl = require('./commands/tokens/mint-old-rpl');
 const mintNewRpl = require('./commands/tokens/mint-new-rpl');
 
+// Upgrading
+const upgradeABICompress = require('./commands/upgrade/abi-compress');
+const upgradeABIDecompress = require('./commands/upgrade/abi-decompress');
+
 // Profiling
 const viewDepositPoolLogs = require('./commands/profiling/view-deposit-pool-logs');
 const viewNetworkBalanceLogs = require('./commands/profiling/view-network-balance-logs');
@@ -42,6 +49,9 @@ program
     // General
     .addCommand(seedEther)
     .addCommand(mineBlocks)
+
+    // Contracts
+    .addCommand(contractAddressABI)
 
     // DAOs
     .addCommand(trustedNodeDAO.bootstrapMember)
@@ -68,6 +78,10 @@ program
     // Tokens
     .addCommand(mintOldRpl)
     .addCommand(mintNewRpl)
+
+    // Upgrading
+    .addCommand(upgradeABICompress)
+    .addCommand(upgradeABIDecompress)
 
     // Profiling
     .addCommand(viewDepositPoolLogs)

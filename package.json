@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "pako": "^2.0.3"
+  },
   "devDependencies": {
     "commander": "^5.1.0",
     "web3": "^1.2.9"
