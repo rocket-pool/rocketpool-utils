@@ -20,6 +20,9 @@ const submitMinipoolWithdrawable = require('./commands/minipool/submit-withdrawa
 // Node
 const nodeRegister = require('./commands/node/register');
 const nodeDeposit = require('./commands/node/deposit');
+const nodeSetWithdrawalAddress = require('./commands/node/withdrawal/set');
+const nodeGetPendingWithdrawalAddress = require('./commands/node/withdrawal/get-pending');
+const nodeConfirmWithdrawalAddress = require('./commands/node/withdrawal/confirm');
 
 // Settings
 const protocolSettings = require('./commands/settings/protocol');
@@ -69,6 +72,9 @@ program
     // Node
     .addCommand(nodeRegister)
     .addCommand(nodeDeposit)
+    .addCommand(nodeSetWithdrawalAddress)
+    .addCommand(nodeGetPendingWithdrawalAddress)
+    .addCommand(nodeConfirmWithdrawalAddress)
 
     // Settings
     .addCommand(protocolSettings.bootstrapAddress)
