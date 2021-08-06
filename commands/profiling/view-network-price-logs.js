@@ -24,18 +24,21 @@ function viewNetworkPriceLogs() {
             const submitted = pricesSubmittedEvents.map(event => ({
                 block: parseInt(event.returnValues.block),
                 rplPrice: event.returnValues.rplPrice,
+                effectiveRplStake: event.returnValues.effectiveRplStake,
                 from: event.returnValues.from,
             }));
 
             const updated = pricesUpdatedEvents.map(event => ({
                 block: parseInt(event.returnValues.block),
                 rplPrice: event.returnValues.rplPrice,
-            }));
+                effectiveRplStake: event.returnValues.effectiveRplStake,
+        }));
 
             const events = updated.map(e => ({
                 block: e.block,
                 updated: {
                     rplPrice: e.rplPrice,
+                    effectiveRplStake: e.effectiveRplStake,
                 },
                 submitted: [],
             })).sort((a, b) => (a.block - b.block));

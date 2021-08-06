@@ -8,7 +8,10 @@
     "trim-newlines": "^3.0.0"
   },
   "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.4.2",
+    "axios": "^0.21.1",
     "commander": "^5.1.0",
+    "query-string": "^7.0.1",
     "web3": "^1.2.9"
   },
   "scripts": {
