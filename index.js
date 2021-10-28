@@ -35,6 +35,7 @@ const upgradeEncodeCalldata = require('./commands/upgrade/call-encode');
 const upgradeABICompress = require('./commands/upgrade/abi-compress');
 const upgradeABIDecompress = require('./commands/upgrade/abi-decompress');
 const upgradeContract = require('./commands/upgrade/upgrade-contract');
+const upgradeMinipoolAbi = require('./commands/upgrade/upgrade-minipool-abi');
 
 // Profiling
 const viewDepositPoolLogs = require('./commands/profiling/view-deposit-pool-logs');
@@ -91,8 +92,9 @@ program
     .addCommand(upgradeABICompress)
     .addCommand(upgradeABIDecompress)
     .addCommand(upgradeContract)
+	.addCommand(upgradeMinipoolAbi)
 
-    // Profiling
+	// Profiling
     .addCommand(viewDepositPoolLogs)
     .addCommand(viewNetworkBalanceLogs)
     .addCommand(viewNetworkPriceLogs)

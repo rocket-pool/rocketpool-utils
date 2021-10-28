@@ -22,7 +22,11 @@ function profileGasUsage() {
         getContractEventTxReceipts(web3, 'RocketNodeDeposit', 'DepositReceived', {fromBlock: 0}),
         getContractEventTxReceipts(web3, 'RocketMinipoolManager', 'MinipoolDestroyed', {fromBlock: 0}),
         getContractEventTxReceipts(web3, 'RocketNetworkBalances', 'BalancesSubmitted', {fromBlock: 0}),
+        getContractEventTxReceipts(web3, 'RocketNetworkPrices', 'PricesSubmitted', {fromBlock: 0}),
         getContractEventTxReceipts(web3, 'RocketMinipoolStatus', 'MinipoolWithdrawableSubmitted', {fromBlock: 0}),
+        getContractEventTxReceipts(web3, 'RocketDAOProposal', 'ProposalVoted', {fromBlock: 0}),
+        getContractEventTxReceipts(web3, 'RocketRewardsPool', 'RPLTokensClaimed', {fromBlock: 0}),
+        getDissolveReceipts(web3)
     ]).then(([
         userDepositTxReceipts,
         rethBurnTxReceipts,
@@ -30,7 +34,11 @@ function profileGasUsage() {
         nodeDepositTxReceipts,
         minipoolCloseTxReceipts,
         networkBalanceSubmissionTxReceipts,
+        networkPricesSubmissionTxReceipts,
         minipoolStatusSubmissionTxReceipts,
+        proposalVoteReceipts,
+        claimReceipts,
+        dissolveReceipts
     ]) => {
 
         // Config
@@ -43,45 +51,32 @@ function profileGasUsage() {
         const nodeDepositData = getGasUsage(nodeDepositTxReceipts);
         const minipoolCloseData = getGasUsage(minipoolCloseTxReceipts);
         const networkBalanceSubmissionData = getGasUsage(networkBalanceSubmissionTxReceipts);
+        const networkPricesSubmissionData = getGasUsage(networkPricesSubmissionTxReceipts);
         const minipoolStatusSubmissionData = getGasUsage(minipoolStatusSubmissionTxReceipts);
+        const proposalVoteData = getGasUsage(proposalVoteReceipts);
+        const claimData = getGasUsage(claimReceipts);
+        const dissolveData = getGasUsage(dissolveReceipts);
+
+        function printResults(name, data) {
+            console.log(`${name} (${data.sampleSize} events):`);
+            console.log(`Min gas cost: ${data.minCost} (${gasToEth(data.minCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
+            console.log(`Max gas cost: ${data.maxCost} (${gasToEth(data.maxCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
+            console.log(`Avg gas cost: ${data.avgCost} (${gasToEth(data.avgCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
+            console.log('--------------------');
+        }
 
         // Print
-        console.log('--------------------');
-        console.log(`User deposits (${userDepositData.sampleSize} events):`);
-        console.log(`Min gas cost: ${userDepositData.minCost} (${gasToEth(userDepositData.minCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Max gas cost: ${userDepositData.maxCost} (${gasToEth(userDepositData.maxCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Avg gas cost: ${userDepositData.avgCost} (${gasToEth(userDepositData.avgCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log('--------------------');
-        console.log(`rETH burns (${rethBurnData.sampleSize} events):`);
-        console.log(`Min gas cost: ${rethBurnData.minCost} (${gasToEth(rethBurnData.minCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Max gas cost: ${rethBurnData.maxCost} (${gasToEth(rethBurnData.maxCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Avg gas cost: ${rethBurnData.avgCost} (${gasToEth(rethBurnData.avgCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log('--------------------');
-        console.log(`Node registrations (${nodeRegistrationData.sampleSize} events):`);
-        console.log(`Min gas cost: ${nodeRegistrationData.minCost} (${gasToEth(nodeRegistrationData.minCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Max gas cost: ${nodeRegistrationData.maxCost} (${gasToEth(nodeRegistrationData.maxCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Avg gas cost: ${nodeRegistrationData.avgCost} (${gasToEth(nodeRegistrationData.avgCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log('--------------------');
-        console.log(`Node deposits (${nodeDepositData.sampleSize} events):`);
-        console.log(`Min gas cost: ${nodeDepositData.minCost} (${gasToEth(nodeDepositData.minCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Max gas cost: ${nodeDepositData.maxCost} (${gasToEth(nodeDepositData.maxCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Avg gas cost: ${nodeDepositData.avgCost} (${gasToEth(nodeDepositData.avgCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log('--------------------');
-        console.log(`Minipool closures (${minipoolCloseData.sampleSize} events):`);
-        console.log(`Min gas cost: ${minipoolCloseData.minCost} (${gasToEth(minipoolCloseData.minCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Max gas cost: ${minipoolCloseData.maxCost} (${gasToEth(minipoolCloseData.maxCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Avg gas cost: ${minipoolCloseData.avgCost} (${gasToEth(minipoolCloseData.avgCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log('--------------------');
-        console.log(`Network balance submissions (${networkBalanceSubmissionData.sampleSize} events):`);
-        console.log(`Min gas cost: ${networkBalanceSubmissionData.minCost} (${gasToEth(networkBalanceSubmissionData.minCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Max gas cost: ${networkBalanceSubmissionData.maxCost} (${gasToEth(networkBalanceSubmissionData.maxCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Avg gas cost: ${networkBalanceSubmissionData.avgCost} (${gasToEth(networkBalanceSubmissionData.avgCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log('--------------------');
-        console.log(`Minipool status submissions (${minipoolStatusSubmissionData.sampleSize} events):`);
-        console.log(`Min gas cost: ${minipoolStatusSubmissionData.minCost} (${gasToEth(minipoolStatusSubmissionData.minCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Max gas cost: ${minipoolStatusSubmissionData.maxCost} (${gasToEth(minipoolStatusSubmissionData.maxCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log(`Avg gas cost: ${minipoolStatusSubmissionData.avgCost} (${gasToEth(minipoolStatusSubmissionData.avgCost, gasPrice)} ETH @ ${gasPrice} gwei)`);
-        console.log('--------------------');
+        printResults('User Deposits', userDepositData);
+        printResults('rETH Burns', rethBurnData);
+        printResults('Node Registrations', nodeRegistrationData);
+        printResults('Node Deposits', nodeDepositData);
+        printResults('Minipool Closures', minipoolCloseData);
+        printResults('Minipool Dissolve', dissolveData);
+        printResults('Network Balance Submissions', networkBalanceSubmissionData);
+        printResults('Network Price Submissions', networkPricesSubmissionData);
+        printResults('Minipool Status Submissions', minipoolStatusSubmissionData);
+        printResults('Proposal Votes', proposalVoteData);
+        printResults('RPL Claiming', claimData);
 
     });
 
@@ -115,6 +110,24 @@ function getEventTxReceipts(web3, events, contractName, eventName) {
     });
 }
 
+async function getDissolveReceipts(web3) {
+    const allLogs = await web3.eth.getPastLogs({
+        fromBlock: 0,
+        toBlock: 'latest',
+        topics: [
+            ['0x26725881c2a4290b02cd153d6599fd484f0d4e6062c361e740fbbe39e7ad6142'],        // StatusUpdated(uint8,uint256)
+            ['0x0000000000000000000000000000000000000000000000000000000000000004'],        // MinipoolStatus.Dissolved
+        ]
+    });
+    const receipts = []
+    const rocketMinipoolManager = await getContract(web3, 'RocketMinipoolManager');
+    for (const log of allLogs) {
+        if (await rocketMinipoolManager.methods.getMinipoolExists(log.address).call()){
+            receipts.push(await web3.eth.getTransactionReceipt(log.transactionHash));
+        }
+    }
+    return receipts
+}
 
 // Get gas usage data from a collection of tx receipts
 function getGasUsage(txReceipts) {
